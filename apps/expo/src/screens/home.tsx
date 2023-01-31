@@ -1,6 +1,6 @@
+import React from "react";
 import { useUser } from "@clerk/clerk-expo";
 import { useLinkTo } from "@react-navigation/native";
-import React, { useEffect } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { UserProfileIcon } from "../components/UserProfileIcon";
 import { trpc } from "../utils/trpc";
@@ -9,12 +9,6 @@ export const HomeScreen = () => {
   const linkTo = useLinkTo();
   const { isLoaded, user } = useUser();
   const { data: gptResponse } = trpc.post.createCompletion.useQuery();
-  const { mutateAsync } = trpc.auth.createUser.useMutation();
-
-  useEffect(() => {
-    mutateAsync();
-  }, []);
-
   console.log({ gptResponse });
 
   if (!isLoaded || !user) {
