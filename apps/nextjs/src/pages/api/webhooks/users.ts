@@ -35,18 +35,21 @@ export default async function handler(
   const eventType: EventType = evt.type;
   if (eventType === "user.created" || eventType === "user.updated") {
     const { id, ...attributes } = evt.data;
-    console.log("evt.data", evt.data);
-    const response = await upsert(`${id}`, attributes);
-    switch (response) {
-      case "created":
-        res.json({ message: "User created" });
-        break;
-      case "updated":
-        res.json({ message: "User updated" });
-        break;
-      case "skipped":
-        res.json({ message: "User skipped" });
-        break;
+    if (id) {
+      const response = await upsert(`${id}`, attributes);
+      switch (response) {
+        case "created":
+          res.json({ message: "User created" });
+          break;
+        case "updated":
+          res.json({ message: "User updated" });
+          break;
+        case "skipped":
+          res.json({ message: "User skipped" });
+          break;
+      }
+    } else {
+      res.json({ message: "User ID missing" });
     }
   } else {
     res.json({ message: "Unhandled event" });

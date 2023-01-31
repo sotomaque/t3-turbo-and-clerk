@@ -16,19 +16,19 @@ type UpserResponse = "created" | "updated" | "skipped";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function upsert(
-  externalId: string,
+  id: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attributes: any,
 ): Promise<UpserResponse> {
   const user = await prisma.user.findFirst({
-    where: { id: externalId },
+    where: { id: id },
   });
 
   if (user && userMatches(user, attributes)) {
     return "skipped";
   } else if (user) {
     await prisma.user.update({
-      where: { id: externalId },
+      where: { id: id },
       data: {
         lastName: `${attributes.last_name}`,
         firstName: `${attributes.first_name}`,
@@ -40,7 +40,7 @@ export async function upsert(
   } else {
     await prisma.user.create({
       data: {
-        id: externalId,
+        id: id,
         lastName: `${attributes.last_name}`,
         firstName: `${attributes.first_name}`,
         profileImageUrl: `${attributes.profile_image_url}`,
