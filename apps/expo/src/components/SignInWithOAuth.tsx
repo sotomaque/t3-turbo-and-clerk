@@ -3,6 +3,7 @@ import React from "react";
 import { Button, View } from "react-native";
 
 import * as AuthSession from "expo-auth-session";
+import { trpc } from "../utils/trpc";
 
 type validOauthStrategies = "oauth_apple" | "oauth_discord" | "oauth_google";
 
@@ -29,6 +30,7 @@ const socialLoginsEnabled: SocialLogin[] = [
 const SignInWithOAuth = () => {
   const { isLoaded, signIn, setSession } = useSignIn();
   const { signUp } = useSignUp();
+
   if (!isLoaded) return null;
 
   const handleSignInWIthOauth = async (strategy: validOauthStrategies) => {
