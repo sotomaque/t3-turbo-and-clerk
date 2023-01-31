@@ -4,19 +4,42 @@ import { Button, View } from "react-native";
 
 import * as AuthSession from "expo-auth-session";
 
+type validOauthStrategies = "oauth_apple" | "oauth_discord" | "oauth_google";
+
+type SocialLogin = {
+  name: string;
+  strategy: validOauthStrategies;
+};
+
+const socialLoginsEnabled: SocialLogin[] = [
+  {
+    name: "Apple",
+    strategy: "oauth_apple",
+  },
+  {
+    name: "Discord",
+    strategy: "oauth_discord",
+  },
+  {
+    name: "Google",
+    strategy: "oauth_google",
+  },
+];
+
 const SignInWithOAuth = () => {
   const { isLoaded, signIn, setSession } = useSignIn();
   const { signUp } = useSignUp();
   if (!isLoaded) return null;
 
-  const handleSignInWithDiscordPress = async () => {
+  const handleSignInWIthOauth = async (strategy: validOauthStrategies) => {
     try {
       const redirectUrl = AuthSession.makeRedirectUri({
         path: "/oauth-native-callback",
       });
 
+      // chagne to oauth_discord for discord login
       await signIn.create({
-        strategy: "oauth_discord",
+        strategy: strategy,
         redirectUrl,
       });
 
@@ -76,10 +99,12 @@ const SignInWithOAuth = () => {
 
   return (
     <View className="rounded-lg border-2 border-gray-500 p-4">
-      <Button
-        title="Sign in with Discord"
-        onPress={handleSignInWithDiscordPress}
-      />
+      {socialLoginsEnabled.map(({ name, strategy }) => (
+        <Button
+          title={`Sign in with ${name}`}
+          onPress={() => handleSignInWIthOauth(strategy)}
+        />
+      ))}
     </View>
   );
 };
