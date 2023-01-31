@@ -35,6 +35,7 @@ export default async function handler(
   const eventType: EventType = evt.type;
   if (eventType === "user.created" || eventType === "user.updated") {
     const { id, ...attributes } = evt.data;
+    console.log("evt.data", evt.data);
     const response = await upsert(`${id}`, attributes);
     switch (response) {
       case "created":
