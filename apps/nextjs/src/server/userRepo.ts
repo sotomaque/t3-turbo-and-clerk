@@ -18,13 +18,9 @@ export async function upsert(externalId: string, attributes: any) {
     where: { id: externalId },
   });
 
-  console.log("USER IN UPSERT", user);
-
   if (user && userMatches(user, attributes)) {
-    console.log("FIRST CONDITION - NO UPDATE");
     return;
   } else if (user) {
-    console.log("SECOND CONDITON - UPDATE");
     return prisma.user.update({
       where: { id: externalId },
       data: {
@@ -35,7 +31,6 @@ export async function upsert(externalId: string, attributes: any) {
       },
     });
   } else {
-    console.log("THIRD CONDITION - CREATE");
     return prisma.user.create({
       data: {
         id: externalId,

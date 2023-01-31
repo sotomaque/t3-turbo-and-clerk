@@ -3,13 +3,10 @@ import { useUser } from "@clerk/clerk-expo";
 import { useLinkTo } from "@react-navigation/native";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { UserProfileIcon } from "../components/UserProfileIcon";
-import { trpc } from "../utils/trpc";
 
 export const HomeScreen = () => {
   const linkTo = useLinkTo();
   const { isLoaded, user } = useUser();
-  const { data: gptResponse } = trpc.post.createCompletion.useQuery();
-  console.log({ gptResponse });
 
   if (!isLoaded || !user) {
     return (
@@ -49,10 +46,6 @@ export const HomeScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-
-      {/* <TouchableOpacity onPress={() => linkTo("/home")}>
-        <Text>Go To Home Screen</Text>
-      </TouchableOpacity> */}
     </SafeAreaView>
   );
 };

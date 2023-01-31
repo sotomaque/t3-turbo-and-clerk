@@ -30,8 +30,6 @@ export const postRouter = router({
       max_tokens: 7,
     });
 
-    console.log({ response });
-
     return response.data;
   }),
 });
