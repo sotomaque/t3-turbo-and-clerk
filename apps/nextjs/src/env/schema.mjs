@@ -7,8 +7,8 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
-  CLERK_SECRET_KEY: z.string().optional(),
-  WEBHOOK_SECRET: z.string().optional(),
+  CLERK_SECRET_KEY: z.string(),
+  WEBHOOK_SECRET: z.string(),
 });
 
 /**
@@ -17,7 +17,7 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional(),
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
 });
 
 /**

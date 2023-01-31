@@ -13,7 +13,7 @@ export const config = {
   },
 };
 
-const webhookSecret: string = env.WEBHOOK_SECRET || "";
+const webhookSecret: string = env.WEBHOOK_SECRET;
 
 export default async function handler(
   req: NextApiRequestWithSvixRequiredHeaders,
@@ -35,10 +35,21 @@ export default async function handler(
   const eventType: EventType = evt.type;
   if (eventType === "user.created" || eventType === "user.updated") {
     const { id, ...attributes } = evt.data;
-    await upsert(`${id}`, attributes);
+    const response = await upsert(`${id}`, attributes);
+    switch (response) {
+      case "created":
+        res.json({ message: "User created" });
+        break;
+      case "updated":
+        res.json({ message: "User updated" });
+        break;
+      case "skipped":
+        res.json({ message: "User skipped" });
+        break;
+    }
+  } else {
+    res.json({ message: "Unhandled event" });
   }
-
-  res.json({});
 }
 
 type NextApiRequestWithSvixRequiredHeaders = NextApiRequest & {

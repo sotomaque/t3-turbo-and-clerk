@@ -12,16 +12,22 @@ function userMatches(user: any, attributes: any) {
   );
 }
 
+type UpserResponse = "created" | "updated" | "skipped";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function upsert(externalId: string, attributes: any) {
+export async function upsert(
+  externalId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes: any,
+): Promise<UpserResponse> {
   const user = await prisma.user.findFirst({
     where: { id: externalId },
   });
 
   if (user && userMatches(user, attributes)) {
-    return;
+    return "skipped";
   } else if (user) {
-    return prisma.user.update({
+    prisma.user.update({
       where: { id: externalId },
       data: {
         lastName: `${attributes.last_name}`,
@@ -30,8 +36,9 @@ export async function upsert(externalId: string, attributes: any) {
         username: `${attributes.username}`,
       },
     });
+    return "updated";
   } else {
-    return prisma.user.create({
+    prisma.user.create({
       data: {
         id: externalId,
         lastName: `${attributes.last_name}`,
@@ -40,5 +47,6 @@ export async function upsert(externalId: string, attributes: any) {
         username: `${attributes.username}`,
       },
     });
+    return "created";
   }
 }
