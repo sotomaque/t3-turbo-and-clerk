@@ -1,5 +1,4 @@
 import { protectedProcedure, publicProcedure, router } from "../trpc";
-import { z } from "zod";
 
 export const authRouter = router({
   getSession: publicProcedure.query(({ ctx }) => {

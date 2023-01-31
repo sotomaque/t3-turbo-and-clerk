@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import { buffer } from "micro";
 import { env } from "src/env/server.mjs";
-import { trpc } from "src/utils/trpc";
 import { upsert } from "src/server/userRepo";
 
 // Disable the bodyParser so we can access the raw

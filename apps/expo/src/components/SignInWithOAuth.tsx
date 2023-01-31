@@ -3,7 +3,6 @@ import React from "react";
 import { Button, View } from "react-native";
 
 import * as AuthSession from "expo-auth-session";
-import { trpc } from "../utils/trpc";
 
 type validOauthStrategies = "oauth_apple" | "oauth_discord" | "oauth_google";
 

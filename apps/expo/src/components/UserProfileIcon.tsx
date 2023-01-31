@@ -3,6 +3,7 @@ import { Image } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 // TODO: Type User
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UserProfileIcon = ({ user }: { user: any }) => {
   if (user.profileImageUrl) {
     return (

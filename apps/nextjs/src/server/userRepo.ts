@@ -1,19 +1,19 @@
 import { prisma } from "@acme/db";
-import type { Prisma } from "@prisma/client";
 
-export function upsert(externalId: string, attributes: Prisma.UserUpdateInput) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function upsert(externalId: string, attributes: any) {
   return prisma.user.upsert({
     where: { id: externalId },
     update: {
-      lastName: `${attributes.lastName}`,
-      firstName: `${attributes.firstName}`,
-      profileImageUrl: `${attributes.profileImageUrl}`,
+      lastName: `${attributes.last_name}`,
+      firstName: `${attributes.first_name}`,
+      profileImageUrl: `${attributes.profile_image_url}`,
       username: `${attributes.username}`,
     },
     create: {
-      lastName: `${attributes.lastName}`,
-      firstName: `${attributes.firstName}`,
-      profileImageUrl: `${attributes.profileImageUrl}`,
+      lastName: `${attributes.last_name}`,
+      firstName: `${attributes.first_name}`,
+      profileImageUrl: `${attributes.profile_image_url}`,
       username: `${attributes.username}`,
     },
   });
