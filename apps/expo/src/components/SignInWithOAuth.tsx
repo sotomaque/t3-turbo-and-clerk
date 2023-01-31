@@ -29,6 +29,7 @@ const socialLoginsEnabled: SocialLogin[] = [
 const SignInWithOAuth = () => {
   const { isLoaded, signIn, setSession } = useSignIn();
   const { signUp } = useSignUp();
+
   if (!isLoaded) return null;
 
   const handleSignInWIthOauth = async (strategy: validOauthStrategies) => {
