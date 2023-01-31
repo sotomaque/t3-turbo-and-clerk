@@ -35,6 +35,7 @@ export default async function handler(
   const eventType: EventType = evt.type;
   if (eventType === "user.created" || eventType === "user.updated") {
     const { id, ...attributes } = evt.data;
+    console.log("EVENT DATA", evt);
     // console.log red color
     console.log("\x1b[31m%s\x1b[0m", "EVENT!!!!");
     console.log({ id, attributes });
