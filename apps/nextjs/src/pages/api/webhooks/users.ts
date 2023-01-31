@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import { buffer } from "micro";
 import { env } from "src/env/server.mjs";
+import { trpc } from "src/utils/trpc";
 
 // Disable the bodyParser so we can access the raw
 // request body for verification.
@@ -37,7 +38,15 @@ export default async function handler(
     // console.log red color
     console.log("\x1b[31m%s\x1b[0m", "EVENT!!!!");
     console.log({ id, attributes });
-    // await upsert(id as string, attributes);
+    const { mutateAsync } = trpc.auth.upsertUser.useMutation();
+    await mutateAsync({
+      id: id as string,
+      firstName: attributes.firstName as string,
+      lastName: attributes.lastName as string,
+      profileImageUrl: attributes.profile_image_url as string,
+      username: attributes.username as string,
+    });
+    /** */
   }
 
   res.json({});
