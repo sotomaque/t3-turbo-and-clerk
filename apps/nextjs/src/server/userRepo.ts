@@ -27,7 +27,7 @@ export async function upsert(
   if (user && userMatches(user, attributes)) {
     return "skipped";
   } else if (user) {
-    prisma.user.update({
+    await prisma.user.update({
       where: { id: externalId },
       data: {
         lastName: `${attributes.last_name}`,
@@ -38,7 +38,7 @@ export async function upsert(
     });
     return "updated";
   } else {
-    prisma.user.create({
+    await prisma.user.create({
       data: {
         id: externalId,
         lastName: `${attributes.last_name}`,
