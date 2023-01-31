@@ -1,7 +1,5 @@
 import { FADE_IN_ANIMATION_SETTINGS } from "@/lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { ReactNode } from "react";
 import useScroll from "@/lib/hooks/use-scroll";
 import Meta from "./meta";
@@ -41,7 +39,9 @@ export default function Layout({
               {!session && status !== "loading" ? (
                 <motion.button
                   className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
-                  onClick={() => {}}
+                  onClick={() => {
+                    console.log("Clicked");
+                  }}
                   {...FADE_IN_ANIMATION_SETTINGS}
                 >
                   Sign In

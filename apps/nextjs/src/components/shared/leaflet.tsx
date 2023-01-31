@@ -19,6 +19,7 @@ export default function Leaflet({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleDragEnd(_: any, info: any) {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
