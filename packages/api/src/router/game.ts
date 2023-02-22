@@ -11,7 +11,6 @@ export const gameRouter = router({
       include: { markers: true, players: true },
     });
   }),
-
   create: protectedProcedure
     .input(z.object({ title: z.string(), description: z.string() }))
     .mutation(async ({ ctx, input }) => {
