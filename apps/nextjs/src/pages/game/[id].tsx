@@ -26,13 +26,15 @@ export default function GameById() {
     );
   }
 
+  const { markers } = data;
+
   return (
     <>
       <NavbarLayout />
 
       <main className="min-h-screen bg-slate-400">
         <h3 className="flex justify-center">{data.title}</h3>
-        <DVDScreenSaver gameId={id} />
+        <DVDScreenSaver gameId={id} markers={markers} />
       </main>
     </>
   );

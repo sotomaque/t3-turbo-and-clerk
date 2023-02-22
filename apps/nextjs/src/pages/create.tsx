@@ -1,11 +1,4 @@
-// page with a form
-// for a gameName
-// and a button
-// should redirect to /game/:gameId
-// where gameId is the id of the game (uuid for now)
-
 import { NavbarLayout } from "@/components/layout/NavbarLayout";
-import { Formik } from "formik";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { trpc } from "src/utils/trpc";

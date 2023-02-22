@@ -21,19 +21,14 @@ model Game {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   published    Boolean  @default(false)
-
   title        String
   description  String
-
   isActive     Boolean  @default(false)
   impactCount  Int      @default(0)
-
   owner        User     @relation(name: "game-owner", fields: [ownerId], references: [id])
   ownerId      String
-
   players      User[] 
   markers      Marker[]
-
   winner      User?    @relation(name: "game-winner", fields: [winnerId], references: [id])
   winnerId    String?
 }
@@ -45,10 +40,8 @@ model User {
   profileImageUrl String
   username        String
   createdAt       DateTime @default(now())
-
   games           Game[] 
   gamesOwned      Game[]   @relation(name: "game-owner")
-
   gamesWon        Game[]   @relation(name: "game-winner")
 }
 
