@@ -19,6 +19,8 @@ export const DVDScreenSaver = ({
   const HEIGHT = 20;
   const WIDTH = 20;
 
+  console.log({ markers });
+
   const { marker, setMarker, setMarkerHeight, clearMarker, setMarkerWidth } =
     useStore(useMarkerStore);
 
