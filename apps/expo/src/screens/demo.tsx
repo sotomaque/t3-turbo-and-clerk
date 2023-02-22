@@ -38,6 +38,9 @@ const CreatePost: React.FC = () => {
     async onSuccess() {
       await utils.post.all.invalidate();
     },
+    onMutate(variables) {
+      console.log("Called on mutate", variables);
+    },
   });
 
   const [title, onChangeTitle] = React.useState("");
